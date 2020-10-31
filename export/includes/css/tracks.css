@@ -1,0 +1,76 @@
+.tracks-header {
+    display: flex;
+    flex-flow: row;
+    margin-top: 1rem;
+    padding: 0 0.25rem;
+}
+
+.tracks-header-container {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1;
+}
+
+.tracks-header-container:last-child {
+    display: inline-flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1;
+}
+
+.tracks-table {
+    background-color: rgb(230, 230, 230);
+    border: 0.15rem solid rgb(25, 25, 25);
+    border-spacing: 1rem;
+    position: relative;
+    width: 100%;
+    padding: 1rem;
+}
+
+.tracks-table__header {
+    outline: 2px solid rgb(25, 25, 25);
+}
+
+.tracks-table__header-item {
+    font-weight: bold;
+    word-break: keep-all;
+}
+
+.tracks-table tr {
+    width: 100%;
+    word-break: break-word;
+}
+
+.track-body__track:nth-child(odd) {
+    background-color: rgb(215, 215, 215);
+}
+
+.track-body__track-info.index {
+    text-align: center;
+    width: 3%;
+}
+
+.track-body__track-info.name {
+    width: 30%
+}
+
+.track-body__track-info.genre {
+    font-style: italic;
+    width: 17%;
+}
+
+.track-body__track-info.artist,
+.track-body__track-info.album {
+    width: 25%;
+}
+
+.tracks-footer__export {
+    margin-bottom: 5rem;
+}
+
+.tracks-footer__export-button {
+    position: fixed;
+    bottom: 1rem;
+    right: 3.5rem;
+}

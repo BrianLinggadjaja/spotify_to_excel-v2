@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+	<head>
+		<title>Spotify to Excel | Export</title>
+		<link rel="icon" href="./../assets/spotify_to_excel_logo.png">
+
+		<!-- Metadata -->
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- CSS Imports -->
+		<link rel="stylesheet" href="./../includes/css/override.css">
+		<link rel="stylesheet" href="./../includes/css/layout.css">
+		<link rel="stylesheet" href="./includes/css/sidebar.css">
+		<link rel="stylesheet" href="./includes/css/export.css">
+		<link rel="stylesheet" href="./includes/css/error.css">
+		<link rel="stylesheet" href="./includes/css/tracks.css">
+
+		<!-- Package Imports -->
+		<script defer src="./../packages/axios.min.js"></script>
+		<script defer src="./../packages/xlsx.min.js"></script>
+
+		<!-- Global JS Imports -->
+		<script defer src="./../includes/js/mixins.js"></script>
+		<script defer src="./../includes/js/routes.js"></script>
+		<script defer src="./../includes/js/state.js"></script>
+		<script defer src="./../includes/js/auth.js"></script>
+
+		<!-- Local JS Imports -->
+		<script defer src="./includes/js/loadContent.js"></script>
+		<script defer src="./includes/js/navigation.js"></script>
+		<script defer src="./includes/js/error.js"></script>
+		<script defer src="./includes/js/export.js"></script>
+
+		<!-- Sub Component Imports -->
+		<script defer src="./sub_components/tracks.js"></script>
+		<script defer src="./sub_components/playlists.js"></script>
+	</head>
+
+	<body>
+		<nav class="sidebar-wrapper" role="navigation">
+			<div class="sidebar">
+				<div class="sidebar-option">
+					<button id="skipNav" class="sidebar-button skip" type="button" role="button">Skip Navigation</button>
+				</div>
+				<div class="sidebar-option logo">
+					<img src="./../assets/spotify_to_excel_logo.png" alt="spotify to excel logo">
+				</div>
+				<div class="sidebar-option nav">
+					<button id="visitTracks" class="sidebar-button mb-1" type="button" role="button">
+						<img class="sidebar-button-page" src="./../assets/tracks.png" alt="tracks">
+						<div class="sidebar-label">Tracks</div>
+						<div class="sidebar-line"></div>
+					</button>
+					<button id="visitPlaylists" class="sidebar-button mb-1" type="button" role="button">
+						<img class="sidebar-button-page" src="./../assets/playlist.png" alt="playlists">
+						<div class="sidebar-label">Playlists</div>
+						<div class="sidebar-line"></div>
+					</button>
+				</div>
+				<div class="sidebar-option logout">
+					<button id="logout" class="sidebar-button" type="button" role="button">
+						<img class="sidebar-button-page" src="./../assets/logout.png" alt="logout">
+						<div class="sidebar-label">Logout</div>
+						<div class="sidebar-line"></div>
+					</button>
+				</div>
+			</div>
+		</nav>
+
+		<main class="export-wrapper">
+			<div class="export">
+				<header>
+					<h1 id="contentHeader" class="f-lg"></h1>
+				</header>
+
+				<!-- Mount page content to export-content -->
+				<section class="export-content"></section>
+				
+				<!-- Error Handling Message -->
+				<section class="error-wrapper hidden" aria-hidden="true">
+					<div class="error">
+						<h1 class="error-title">Error</h1>
+						<p class="error-message"></p>
+						<div class="error-button">
+							<label class="hidden" for="errorButton">Close error message</label>
+							<button id="errorButton" class="btn invalid f-md" name="errorButton">Close</button>
+						</div>
+					</div>
+				</section>
+			</div>
+		</main>
+	</body>
+</html>

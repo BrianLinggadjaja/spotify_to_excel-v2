@@ -1,0 +1,25 @@
+.export-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding-left: 6rem;
+    overflow: auto;
+}
+
+.export {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    width: 100%;
+    padding: 1.5rem 2rem;
+}
+
+.export-content {
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}

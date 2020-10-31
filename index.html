@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+	<head>
+		<title>Spotify to Excel | Authorize</title>
+		<link rel="icon" href="./assets/spotify_to_excel_logo.png">
+		
+		<!-- Metadata -->
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- CSS Imports-->
+		<link rel="stylesheet" type="text/css" href="./includes/css/override.css"></link>
+		<link rel="stylesheet" type="text/css" href="./includes/css/layout.css"></link>
+		<link rel="stylesheet" type="text/css" href="./includes/css/authorize.css"></link>
+	</head>
+
+	<body class="authorize-wrapper">
+		<main class="authorize">
+			<img class="authorize-logo mb-3" src="assets/spotify_to_excel_logo.png" alt="spotify to excel logo">
+			<div class="authorize-cont mb-2">
+				<h1 class="f-xlg mb-1">Spotify to Excel</h1>
+				<p class="f-sm">Convert your playlist & tracks to Excel</p>
+			</div>
+			<div class="authorize-cont">
+				<label class="hidden" for="requestAuth">Request Authorization from Spotify</label>
+				<button id="requestAuth" name="requestAuth" class="btn valid f-md">Request Permission</button>
+			</div>
+		</main>
+
+		<!-- JS Imports -->
+		<script defer src="./includes/js/mixins.js"></script>
+		<script defer src="./includes/js/routes.js"></script>
+		<script defer src="./includes/js/state.js"></script>
+		<script defer src="./includes/js/auth.js"></script>
+	</body>
+</html>

@@ -1,0 +1,128 @@
+.sidebar-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 6rem;
+    z-index: 1;
+}
+
+.sidebar {
+    display: flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+    background-color: rgb(60, 60, 60);
+    height: 100%;
+    width: 100%;
+}
+
+.sidebar-option {
+    width: 100%;
+}
+
+.sidebar-option img {
+    height: auto;
+    max-width: 100%;
+}
+
+.sidebar-option.logo {
+    padding: 0.75rem 0;
+}
+
+.sidebar-option.logo img {
+    padding: 0 0.75rem;
+}
+
+.sidebar-option.nav {
+    display: flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+    flex: 1;
+    padding: 1.25rem 0;
+}
+
+.sidebar-option.logout {
+    padding: 1.25rem 0;
+}
+
+.sidebar-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 1rem 0 1rem;
+}
+
+.sidebar-button.skip {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    background-color: rgba(25, 25, 25, 0.8);
+    color: rgb(245, 245, 245);
+    pointer-events: none;
+    padding: 0.25rem;
+}
+
+.sidebar-button.skip:focus {
+    opacity: 100;
+    pointer-events: all;
+}
+
+.sidebar-button-page {
+    width: 65%;
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-label {
+    font-weight: bold;
+    color: rgb(245, 245, 245);
+    margin-top: 0.15rem;
+}
+
+.sidebar-line {
+    background: linear-gradient(to left, rgb(24, 248, 135), rgb(24, 246, 226), rgb(20, 142, 236));
+    height: 0.25rem;
+    width: 0;
+    margin-top: 0.25rem;
+    border-radius: 3rem;
+}
+
+.sidebar-button.active .sidebar-line,
+.sidebar-button:active .sidebar-line {
+    max-width: 100%;
+    width: 4rem;
+}
+
+.sidebar-button:not(.active):hover,
+.sidebar-button:not(.active):focus {
+    animation: animate 1250ms infinite ease-out;
+}
+
+@keyframes animate {
+    0% {
+        outline: 2px solid rgb(24, 248, 135);
+        outline-offset: -2px;
+    }
+    25% {
+        outline: 3px solid rgb(24, 246, 226);
+        outline-offset: -3px;
+    }
+    50% {
+        outline: 3px solid rgb(24, 246, 226);
+        outline-offset: -3px;
+    }
+    75% {
+        outline: 3px solid rgb(35, 150, 245);
+        outline-offset: -3px;
+    }
+    100% {
+        outline: 2px  solid rgb(20, 142, 236);
+        outline-offset: -2px;
+    }
+}
