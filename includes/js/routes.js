@@ -1,7 +1,7 @@
 // List of routes
 const routes = {
     auth: '/spotify_to_excel-v2/', // Based off root of application host
-    export: '/export/'
+    export: '/spotify_to_excel-v2/export/'
 }
 
 function goToRoute(location) {
