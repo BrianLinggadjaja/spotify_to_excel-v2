@@ -3,7 +3,11 @@ document.addEventListener("DOMContentLoaded", checkAuth)
 
 // Requests authorization via spotify redirect
 const requestAuthButton = document.getElementById("requestAuth")
-requestAuthButton.addEventListener("click", requestAuth)
+
+// Add event listener if auth button exists
+if (requestAuthButton) {
+	requestAuthButton.addEventListener("click", requestAuth)
+}
 
 // Request Authorization
 function requestAuth() {
