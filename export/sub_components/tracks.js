@@ -58,6 +58,8 @@ function createTracksBody() {
 		table.append(headers)
 	}
 
+	// Disable navigation before grabbing liked tracks
+	toggleNavigation(false)
 	getLikedTracks(0)
 
 	return wrapper
@@ -126,6 +128,9 @@ async function getLikedTracks(offset) {
 
 			if (isExportEnabled) {
 				exportButton.classList.remove('hidden')
+
+				// Re-enable navigation after export is enabled
+				toggleNavigation(true)
 			}
 		}
 	})

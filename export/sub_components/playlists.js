@@ -28,7 +28,7 @@ function createPlaylistsHeader() {
 
 	return wrapper
 }
-/*
+
 function createTracksBody() {
 	// Wrapper
 	let wrapper = document.createElement('div')
@@ -140,4 +140,3 @@ async function getLikedTracks(offset) {
 
 	return data
 }
-*/

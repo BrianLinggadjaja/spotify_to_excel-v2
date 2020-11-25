@@ -4,32 +4,69 @@ skipNavigationButton.addEventListener('click', skipNavigation)
 
 function skipNavigation() {
     const content = document.querySelector('main')
-    console.log('test')
     content.setAttribute('tabindex', 1)
     content.focus()
     content.removeAttribute('tabindex')
 }
 
-// Event Handlers
-const visitTracksButton = document.getElementById('visitTracks')
-visitTracksButton.addEventListener('click', () => {
+// Initalize navigation event listeners
+toggleNavigation(true)
+
+// Disable navigation
+function toggleNavigation (isNavigationActive) {
+    if (isNavigationActive) {
+        toggleLikedTracks(true)
+        togglePlaylists(true)
+    } else {
+        toggleLikedTracks(false)
+        togglePlaylists(false)
+    }
+}
+
+// Toggle Specified Navigation Buttons
+function toggleLikedTracks(isButtonClickable) {
+    const visitTracksButton = document.getElementById('visitTracks')
+
+    if (isButtonClickable) {
+        visitTracksButton.addEventListener('click', loadLikedTracks, false)
+    } else {
+        visitTracksButton.removeEventListener('click', loadLikedTracks, false)
+    }
+}
+
+function togglePlaylists(isButtonClickable) {
+    const visitPlaylistsButton = document.getElementById('visitPlaylists')
+
+    if (isButtonClickable) {
+        visitPlaylistsButton.addEventListener('click', loadPlaylists, false)
+    } else {
+        visitPlaylistsButton.removeEventListener('click', loadPlaylists, false)
+    }
+}
+
+// Load selected page
+function loadLikedTracks () {
     const pageData = {
-        currentPage: 'tracks',
+        currentPage: 'tracks'
     }
 
-    loadContent(pageData)
-})
+    // Reset track count
+    indexCount = 0
 
-const visitPlaylistsButton = document.getElementById('visitPlaylists')
-visitPlaylistsButton.addEventListener('click', () => {
+    loadContent(pageData)
+}
+
+function loadPlaylists () {
     const pageData = {
-        currentPage: 'playlists',
+        currentPage: 'playlists'
     }
 
-    loadContent(pageData)
-})
+    // Reset track count
+    indexCount = 0
 
+    loadContent(pageData)
+}
+
+// Logout Event
 const logoutButton = document.getElementById('logout')
-logoutButton.addEventListener('click', () => {
-    logout()
-})
+logoutButton.addEventListener('click', logout)
