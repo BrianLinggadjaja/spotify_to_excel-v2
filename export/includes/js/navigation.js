@@ -17,9 +17,11 @@ function toggleNavigation (isNavigationActive) {
     if (isNavigationActive) {
         toggleLikedTracks(true)
         togglePlaylists(true)
+        toggleSettings(true)
     } else {
         toggleLikedTracks(false)
         togglePlaylists(false)
+        toggleSettings(false)
     }
 }
 
@@ -44,6 +46,16 @@ function togglePlaylists(isButtonClickable) {
     }
 }
 
+function toggleSettings(isButtonClickable) {
+    const visitPlaylistsButton = document.getElementById('visitSettings')
+
+    if (isButtonClickable) {
+        visitPlaylistsButton.addEventListener('click', loadSettings, false)
+    } else {
+        visitPlaylistsButton.removeEventListener('click', loadSettings, false)
+    }
+}
+
 // Load selected page
 function loadLikedTracks () {
     const pageData = {
@@ -64,6 +76,14 @@ function loadPlaylists () {
 
     // Reset track count
     indexCount = 0
+
+    loadContent(pageData)
+}
+
+function loadSettings () {
+    const pageData = {
+        currentPage: 'settings'
+    }
 
     loadContent(pageData)
 }

@@ -20,6 +20,7 @@
 
 		<!-- Package Imports -->
 		<script defer src="./../packages/axios.min.js"></script>
+		<script defer src="./../packages/sortable.min.js"></script>
 		<script defer src="./../packages/xlsx.min.js"></script>
 
 		<!-- Global JS Imports -->
@@ -37,6 +38,7 @@
 		<!-- Sub Component Imports -->
 		<script defer src="./sub_components/tracks.js"></script>
 		<script defer src="./sub_components/playlists.js"></script>
+		<script defer src="./sub_components/settings.js"></script>
 	</head>
 
 	<body>
@@ -57,6 +59,11 @@
 					<button id="visitTracks" class="sidebar-button mb-1" type="button" role="button">
 						<img class="sidebar-button-page" src="./../assets/tracks.png" alt="tracks">
 						<div class="sidebar-label">Tracks</div>
+						<div class="sidebar-line"></div>
+					</button>
+					<button id="visitSettings" class="sidebar-button mb-1" type="button" role="button">
+						<img class="sidebar-button-page" src="./../assets/settings.png" alt="settings">
+						<div class="sidebar-label">Settings</div>
 						<div class="sidebar-line"></div>
 					</button>
 				</div>

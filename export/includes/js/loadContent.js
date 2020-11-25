@@ -58,7 +58,7 @@ function loadContentData (pageTitle) {
 	} else if (pageTitle === 'Playlists') {
 		populatePlaylistsLayout()
 	} else if (pageTitle === 'Settings') {
-		// Load Settings
+		populateSettingsLayout()
 	}
 }
 
