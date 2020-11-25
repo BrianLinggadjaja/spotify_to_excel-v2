@@ -54,11 +54,17 @@ function loadContentInfo (pageTitle) {
 function loadContentData (pageTitle) {
 	if (pageTitle === 'Tracks') {
 		populateTracksLayout()
+		getLikedTracks(0)
 	} else if (pageTitle === 'Playlists') {
 		populatePlaylistsLayout()
 	} else if (pageTitle === 'Settings') {
 		// Load Settings
 	}
+}
+
+function clearContent () {
+	const content = document.querySelector('.export-content')
+	content.textContent = ''
 }
 
 function setPage (pageData) {

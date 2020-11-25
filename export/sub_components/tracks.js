@@ -60,7 +60,6 @@ function createTracksBody() {
 
 	// Disable navigation before grabbing liked tracks
 	toggleNavigation(false)
-	getLikedTracks(0)
 
 	return wrapper
 }
@@ -110,7 +109,8 @@ async function getLikedTracks(offset) {
 		}
 	})
 	.then((response) => {
-		let isAvailableLikedTracks = isEndOfLikedTracks(response.data)
+		response = response.data
+		let isAvailableLikedTracks = isEndOfLikedTracks(response)
 
 		if (isAvailableLikedTracks) {
 			let currentOffset = response.data.offset

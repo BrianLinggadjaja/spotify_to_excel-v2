@@ -130,6 +130,8 @@ function addPlaylistEventListeners () {
 }
 
 function loadTracks (playlistId) {
+	clearContent()
+	populateTracksLayout()
 	toggleNavigation(false)
 	seekTracks(playlistId, 0)
 }
@@ -152,13 +154,25 @@ async function seekTracks(id, offsetNumber) {
 		const newOffset = response.offset + 50
 		const isFullPlaylist = (newOffset >= response.total)
 
-		console.log(response, newOffset, isFullPlaylist)
+		displayTracks(response)
 
 		if (isFullPlaylist) {
-			toggleNavigation(true)
+			// Render export button after load
+			const exportButton = document.querySelector('.tracks-footer__export-button')
+			let isExportEnabled = document.querySelector('.tracks-footer__export-button.hidden') === null ? false : true
+
+			if (isExportEnabled) {
+				exportButton.classList.remove('hidden')
+
+				// Re-enable navigation buttons
+				toggleNavigation(true)
+			}
 		} else {
+			updateLoadingStatus(response)
 			seekTracks(id, newOffset)
 		}
+
+		updateLoadingStatus(response)
 	})
 	.catch((error) => {
 		let errorCode = error.response.status
