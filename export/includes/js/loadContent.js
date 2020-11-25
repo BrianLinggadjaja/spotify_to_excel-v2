@@ -31,7 +31,7 @@ const pageList = {
 function loadContent (pageData) {
 	// Reset Page Content
 	const pageContent = document.querySelector('.export-content')
-	pageContent.innerHTML = null
+	pageContent.textContent = ''
 
 	// Load Page Content of a Valid Page
 	let currentPage = pageData.currentPage
@@ -67,7 +67,7 @@ function setPage (pageData) {
 
 function setPageTitle (pageTitle) {
 	document.title = 'Spotify to Excel | ' + pageTitle
-	document.getElementById('contentHeader').innerHTML = pageTitle
+	document.getElementById('contentHeader').innerText = pageTitle
 }
 
 function selectActiveNavigationButton (pageTitle) {
