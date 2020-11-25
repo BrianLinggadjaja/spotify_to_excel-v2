@@ -1,6 +1,6 @@
 // List of routes
 const routes = {
-    auth: '/', // Based off root of application host
+    auth: '/spotify_to_excel-v2/', // Based off root of application host
     export: '/export/'
 }
 
