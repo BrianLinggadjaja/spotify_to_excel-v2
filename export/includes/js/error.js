@@ -7,8 +7,14 @@ function openError (message, errorCode) {
     metadata.errorCode = errorCode
     setState('metadata', metadata)
 
-    if (isErrorHandlerClosed) {
-        document.querySelector('.error-message').innerHTML = message
+    // Check if errorCode is a 400 type error (request re-auth from user)
+    let isClientError = (errorCode >= 400 && errorCode < 500)
+    if (isClientError) {
+        // Clear Data & Visit Auth
+        localStorage.clear()
+        goToRoute('auth')
+    } else if (isErrorHandlerClosed) {
+        document.querySelector('.error-message').innerText = message
         errorHandlerHidden.setAttribute('aria-hidden', 'false')
         errorHandlerHidden.classList.remove('hidden')
     }
@@ -20,7 +26,7 @@ function closeError () {
     let isErrorHandlerOpen = isNil(errorHandlerHidden)
 
     if (isErrorHandlerOpen) {
-        document.querySelector('.error-message').innerHTML = null
+        document.querySelector('.error-message').innerText = null
         errorHandler.setAttribute('aria-hidden', 'true')
         errorHandler.classList.add('hidden')
         
