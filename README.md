@@ -7,4 +7,4 @@ This tool uses the **Spotify Api** to deliver your list of *playlists* and *trac
 
 Visit the GitHub page at https://brianlinggadjaja.github.io/spotify_to_excel-v2/
 
-![Spotify to Excel Splash Page](https://repository-images.githubusercontent.com/302704128/62a7d000-2f31-11eb-9b01-a77f1cabc573)
+![Spotify to Excel Splash Page](https://repository-images.githubusercontent.com/306866650/15782e00-2f32-11eb-89cb-396dd3948ac0)
