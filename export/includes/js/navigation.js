@@ -1,13 +1,10 @@
 // Run skipNavigation when pressed "enter" on the Skip Nav button
 const skipNavigationButton = document.getElementById('skipNav')
-skipNavigationButton.addEventListener('keyup', (event) => {
-    if (event.keyCode === 13) {
-        skipNavigation()
-    }
-})
+skipNavigationButton.addEventListener('click', skipNavigation)
 
 function skipNavigation() {
     const content = document.querySelector('main')
+    console.log('test')
     content.setAttribute('tabindex', 1)
     content.focus()
     content.removeAttribute('tabindex')
