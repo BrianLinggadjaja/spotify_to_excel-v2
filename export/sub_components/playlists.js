@@ -131,8 +131,8 @@ function addPlaylistEventListeners () {
 
 function loadTracks (playlistId) {
 	clearContent()
-	populateTracksLayout()
 	toggleNavigation(false)
+	populateTracksLayout()
 	seekTracks(playlistId, 0)
 }
 

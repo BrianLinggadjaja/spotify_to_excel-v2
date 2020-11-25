@@ -58,9 +58,6 @@ function createTracksBody() {
 		table.append(headers)
 	}
 
-	// Disable navigation before grabbing liked tracks
-	toggleNavigation(false)
-
 	return wrapper
 }
 
@@ -113,13 +110,13 @@ async function getLikedTracks(offset) {
 		let isAvailableLikedTracks = isEndOfLikedTracks(response)
 
 		if (isAvailableLikedTracks) {
-			let currentOffset = response.data.offset
+			let currentOffset = response.offset
 			const limit = 50
 			const newOffset = currentOffset + limit
 	
 			// Display Tracks and Seek Next Offset
-			updateLoadingStatus(response.data)
-			displayTracks(response.data)
+			updateLoadingStatus(response)
+			displayTracks(response)
 			getLikedTracks(newOffset)
 		} else {
 			// Render export button after load

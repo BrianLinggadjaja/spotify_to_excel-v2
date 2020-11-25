@@ -53,6 +53,7 @@ function loadLikedTracks () {
     // Reset track count
     indexCount = 0
 
+    toggleNavigation(false)
     loadContent(pageData)
 }
 
