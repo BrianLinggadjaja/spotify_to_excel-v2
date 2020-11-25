@@ -14,7 +14,7 @@ function checkCurrentPage() {
 	} else {
 		// Set default page if none is found
 		const defaultPage = {
-			currentPage: 'tracks',
+			currentPage: 'playlists',
 		}
 
 		loadContent(defaultPage)

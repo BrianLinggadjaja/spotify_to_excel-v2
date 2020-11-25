@@ -1,6 +1,22 @@
 function populatePlaylistsLayout () {
-	let exportContent = document.querySelector('.export-content')
-	exportContent.append(createPlaylistsHeader())
+	createPlaylistSelector()
+	getPlaylists(0)
+}
+
+function createPlaylistSelector () {
+	const content = document.querySelector('.export-content')
+
+	// Add a wrapper div around playlists
+	const wrapper = document.createElement('div')
+	wrapper.classList.add('playlists-wrapper')
+
+	// Create the playlists div
+	const playlists = document.createElement('div')
+	playlists.classList.add('playlists')
+
+	// Append elements to the main content
+	wrapper.appendChild(playlists)
+	content.appendChild(wrapper)
 }
 
 function createPlaylistsHeader() {
@@ -29,104 +45,119 @@ function createPlaylistsHeader() {
 	return wrapper
 }
 
-function createTracksBody() {
-	// Wrapper
-	let wrapper = document.createElement('div')
-	wrapper.classList.add('tracks-body')
-
-	// Table
-	const table = document.createElement('table')
-	table.classList.add('tracks-table')
-	wrapper.append(table)
-	
-	// Table Headers
-	let getSettings = getState('settings')
-	let isHeadersEnabled = getSettings.fileHeaders
-	let exportFormat = getSettings.exportFormat
-	let formatLength = exportFormat.length
-
-	if (isHeadersEnabled) {
-		const headers = document.createElement('tr')
-		headers.classList.add('tracks-table__header')
-		for (let i = 0; i < formatLength; i += 1) {
-			let headerData = document.createElement('td')
-			headerData.classList.add('tracks-table__header-item')
-			headerData.innerText = exportFormat[i]
-
-			headers.append(headerData)
-		}
-		table.append(headers)
-	}
-
-	getLikedTracks(0)
-
-	return wrapper
-}
-
-function createTracksFooter() {
-	// Wrapper
-	let wrapper = document.createElement('div')
-	wrapper.classList.add('tracks-footer')
-
-	// Export Container
-	let exportContainer = document.createElement('div')
-	exportContainer.classList.add('tracks-footer__export')
-
-	// Export Label
-	let exportLabel = document.createElement('label')
-	exportLabel.classList.add('tracks-footer__export-label', 'hidden')
-	exportLabel.setAttribute('for', 'exportButton')
-
-	// Export Button
-	let exportButton = document.createElement('button')
-	exportButton.id = 'exportButton'
-	exportButton.classList.add('tracks-footer__export-button', 'f-md', 'btn', 'valid', 'hidden')
-	exportButton.setAttribute('name', 'exportButton')
-	exportButton.setAttribute('title', 'export as excel sheet')
-	exportButton.innerText = "Export"
-
-	exportButton.addEventListener('click', exportExcelFromTable)
-
-	// Append Nodes
-	exportContainer.append(exportLabel, exportButton)
-	wrapper.append(exportContainer)
-
-	return wrapper
-}
-
-async function getLikedTracks(offset) {
+async function getPlaylists(offset) {
+	const authState = getState('auth')
 	const limit = '?limit=' + 50
 	offset = '&offset=' + offset
-	const authState = getState('auth')
 
 	let data = await axios({
 		method: 'get',
-		url: 'https://api.spotify.com/v1/me/tracks/' + limit + offset, // /me/playlists
+		url: 'https://api.spotify.com/v1/me/playlists' + limit + offset,
 		headers: {
 			'Authorization': authState.tokenType + ' ' + authState.accessToken,
 			'content-type': 'application/json'
 		}
 	})
 	.then((response) => {
-		let isAvailableLikedTracks = isEndOfLikedTracks(response.data)
+		response = response.data
+		const newOffset = response.offset + 50
+		const isFullPlaylist = (newOffset >= response.total)
 
-		if (isAvailableLikedTracks) {
-			let currentOffset = response.data.offset
-			const limit = 50
-			const newOffset = currentOffset + limit
-	
-			// Display Tracks and Seek Next Offset
-			updateLoadingStatus(response.data)
-			displayTracks(response.data)
-			getLikedTracks(newOffset)
+		// Append all playlists
+		for (const playlistsObj of response.items) {
+			const playlistName = playlistsObj.name
+			const playlistImage = playlistsObj.images[0].url
+			const playlistId = playlistsObj.id
+			
+			// Add a new playlist entry to the list
+			addPlaylistEntry(playlistName, playlistImage, playlistId)
+		}
+
+		if (isFullPlaylist) {
+			toggleNavigation(true)
 		} else {
-			// Render export button after load
-			const exportButton = document.querySelector('.tracks-footer__export-button')
-			let isExportEnabled = document.querySelector('.tracks-footer__export-button.hidden') === null ? false : true
+			getPlaylists(newOffset)
+		}
+	})
+	.catch((error) => {
+		let errorCode = error.response.status
 
-			if (isExportEnabled) {
-				exportButton.classList.remove('hidden')
-			}
+		console.error('tracks.js > getLikedTracks() > Error Code:', errorCode)
+		openError('Failure to get liked tracks!', errorCode)
+
+		return error
+	})
+
+	addPlaylistEventListeners()
+
+	return data
+}
+
+function addPlaylistEntry (playlistName, playlistImage, playlistId) {
+	const content = document.querySelector('.playlists')
+
+	// Create playlist nodes
+	const playlistElem = document.createElement('div')
+	playlistElem.classList.add('playlist-item')
+	playlistElem.dataset.id = playlistId
+
+	const playlistImageWrapper = document.createElement('div')
+	playlistImageWrapper.classList.add('playlist-item__image-wrapper')
+
+	const playlistImageElem = document.createElement('img')
+	playlistImageElem.src = playlistImage
+	playlistImageElem.classList.add('playlist-item__image')
+	playlistImageElem.alt = 'Playlist Preview'
+
+	const playlistNameElem = document.createElement('span')
+	playlistNameElem.classList.add('playlist-item__name')
+	playlistNameElem.innerText = playlistName
+
+	// Append playlist child nodes
+	playlistImageWrapper.appendChild(playlistImageElem)
+	playlistElem.appendChild(playlistImageWrapper)
+	playlistElem.appendChild(playlistNameElem)
+	content.append(playlistElem)
+}
+
+function addPlaylistEventListeners () {
+	const playlistElem = document.querySelectorAll('.playlist-item')
+
+	for (const playlistItem of playlistElem) {
+		const playlistId = playlistItem.dataset.id
+		playlistItem.addEventListener('click', loadTracks.bind(this, playlistId))
+	}
+}
+
+function loadTracks (playlistId) {
+	toggleNavigation(false)
+	seekTracks(playlistId, 0)
+}
+
+async function seekTracks(id, offsetNumber) {
+	const authState = getState('auth')
+	const limit = '?limit=' + 50
+	let offset = '&offset=' + offsetNumber
+
+	let data = await axios({
+		method: 'get',
+		url: 'https://api.spotify.com/v1/playlists/' + id + '/tracks/' + limit + offset,
+		headers: {
+			'Authorization': authState.tokenType + ' ' + authState.accessToken,
+			'content-type': 'application/json'
+		}
+	})
+	.then((response) => {
+		response = response.data
+		const newOffset = response.offset + 50
+		const isFullPlaylist = (newOffset >= response.total)
+
+		console.log(response, newOffset, isFullPlaylist)
+
+		if (isFullPlaylist) {
+			toggleNavigation(true)
+		} else {
+			seekTracks(id, newOffset)
 		}
 	})
 	.catch((error) => {

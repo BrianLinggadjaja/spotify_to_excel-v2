@@ -103,7 +103,7 @@ async function getLikedTracks(offset) {
 
 	let data = await axios({
 		method: 'get',
-		url: 'https://api.spotify.com/v1/me/tracks/' + limit + offset, // /me/playlists
+		url: 'https://api.spotify.com/v1/me/tracks/' + limit + offset,
 		headers: {
 			'Authorization': authState.tokenType + ' ' + authState.accessToken,
 			'content-type': 'application/json'
@@ -129,7 +129,7 @@ async function getLikedTracks(offset) {
 			if (isExportEnabled) {
 				exportButton.classList.remove('hidden')
 
-				// Re-enable navigation after export is enabled
+				// Re-enable navigation buttons
 				toggleNavigation(true)
 			}
 		}
