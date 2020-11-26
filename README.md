@@ -4,7 +4,7 @@ Date of Creation: 12/04/2019
 
 Created using vanilla JS and libraries such as *[Axios](https://github.com/axios/axios)*, *[SortableJS](https://github.com/SortableJS/sortablejs)*, & *[SheetsJS](https://github.com/SheetJS/sheetjs)*
 
-This tool uses the **Spotify Api** to deliver your list of *playlists* and *tracks* to be **exported** as an **excel format**.
+This tool uses the **Spotify Api** to deliver your list of *tracks* & *playlists* to be **exported** as a **.xlsx format**.
 
 Visit the GitHub page at https://brianlinggadjaja.github.io/spotify_to_excel-v2/
 
