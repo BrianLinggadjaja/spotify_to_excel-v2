@@ -7,6 +7,9 @@ function openError (message, errorCode) {
     metadata.errorCode = errorCode
     setState('metadata', metadata)
 
+    // Re-enable navigation buttons
+    toggleNavigation(true)
+
     // Check if errorCode is a 401 (Un-authorized)
     let isAuthError = (errorCode === 401)
     if (isAuthError) {
@@ -27,10 +30,6 @@ function closeError () {
         document.querySelector('.error-message').innerText = null
         errorHandler.setAttribute('aria-hidden', 'true')
         errorHandler.classList.add('hidden')
-        
-        // Clear Data & Visit Auth
-        localStorage.clear()
-        goToRoute('auth')
     }
 }
 

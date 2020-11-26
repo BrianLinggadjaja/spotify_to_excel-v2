@@ -13,7 +13,7 @@ if (requestAuthButton) {
 function requestAuth() {
 	const api = 'https://accounts.spotify.com/authorize'
 	const responseType = '?response_type=' + 'token'
-	const clientId = '&client_id=' + 'f800745ced564b6a8672795b779cfa15'
+	const clientId = '&client_id=' + '3ed3180a3801467ab924cb03e2869ab1'
 	const scope = '&scope=' + 'user-library-read playlist-read-private'
 	let currentLocation = location.protocol + '//' + location.host + location.pathname
 	const redirectUri = '&redirect_uri=' + currentLocation

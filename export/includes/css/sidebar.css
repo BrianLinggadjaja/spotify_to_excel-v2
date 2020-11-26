@@ -104,6 +104,11 @@
     animation: animate 1250ms infinite ease-out;
 }
 
+.non-interactable > button {
+    pointer-events: none;
+    opacity: 20%;
+}
+
 @keyframes animate {
     0% {
         outline: 2px solid rgb(24, 248, 135);

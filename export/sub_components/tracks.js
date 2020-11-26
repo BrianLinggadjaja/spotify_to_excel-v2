@@ -119,9 +119,6 @@ async function getLikedTracks(offsetNumber) {
 
 			if (isExportEnabled) {
 				exportButton.classList.remove('hidden')
-
-				// Re-enable navigation buttons
-				toggleNavigation(true)
 			}
 		} else {
 			updateLoadingStatus(response)
@@ -132,6 +129,8 @@ async function getLikedTracks(offsetNumber) {
 	})
 	.catch((error) => {
 		let errorCode = error.response.status
+
+		console.log(error)
 
 		console.error('tracks.js > getLikedTracks() > Error Code:', errorCode)
 		openError('Failure to get liked tracks!', errorCode)
@@ -219,6 +218,8 @@ async function displayTracks(tracks) {
 
 async function getArtistGenre(artistsId) {
 	const authState = getState('auth')
+	toggleNavigation(false)
+
 	let genre = await axios({
 		method: 'get',
 		url: 'https://api.spotify.com/v1/artists/'
@@ -229,6 +230,9 @@ async function getArtistGenre(artistsId) {
 		}
 	})
 	.then((response) => {
+		// Re-enable navigation buttons
+		toggleNavigation(true)
+
 		/*	Returns all Genres
 			* let allGenres = response.data.genres
 			* return allGenres

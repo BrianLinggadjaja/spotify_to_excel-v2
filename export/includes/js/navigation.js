@@ -14,11 +14,17 @@ toggleNavigation(true)
 
 // Disable navigation
 function toggleNavigation (isNavigationActive) {
+    const navigationElem = document.querySelector('.sidebar-option.nav')
+
     if (isNavigationActive) {
+        navigationElem.classList.remove('non-interactable')
+
         toggleLikedTracks(true)
         togglePlaylists(true)
         toggleSettings(true)
     } else {
+        navigationElem.classList.add('non-interactable')
+
         toggleLikedTracks(false)
         togglePlaylists(false)
         toggleSettings(false)
@@ -77,6 +83,7 @@ function loadPlaylists () {
     // Reset track count
     indexCount = 0
 
+    toggleNavigation(false)
     loadContent(pageData)
 }
 

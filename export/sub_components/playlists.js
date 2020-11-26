@@ -131,7 +131,6 @@ function addPlaylistEventListeners () {
 
 function loadTracks (playlistId) {
 	clearContent()
-	toggleNavigation(false)
 	populateTracksLayout()
 	seekTracks(playlistId, 0)
 }
@@ -140,6 +139,7 @@ async function seekTracks(id, offsetNumber) {
 	const authState = getState('auth')
 	const limit = '?limit=' + 50
 	let offset = '&offset=' + offsetNumber
+	toggleNavigation(false)
 
 	let data = await axios({
 		method: 'get',
