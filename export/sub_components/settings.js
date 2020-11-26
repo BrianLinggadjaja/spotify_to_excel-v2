@@ -2,10 +2,11 @@ function populateSettingsLayout () {
     const content = document.querySelector('.export-content')
 
     const settings = document.createElement('div')
+    settings.classList.add('settings-wrapper')
     
     // Filename Input
     const fileName = document.createElement('div')
-    fileName.classList.add('settings-filename')
+    fileName.classList.add('settings')
     const fileNameTitle = document.createElement('h2')
     fileNameTitle.innerText = 'File Name'
     const fileNameInput = document.createElement('input')
@@ -16,7 +17,7 @@ function populateSettingsLayout () {
 
     // Toggle File Headers Checkbox
     const fileHeaders = document.createElement('div')
-    fileHeaders.classList.add('settings-fileheaders')
+    fileHeaders.classList.add('settings')
     const fileHeadersTitle = document.createElement('h2')
     fileHeadersTitle.innerText = 'Enable File Headers?'
     const fileHeadersInput = document.createElement('input')
@@ -27,10 +28,14 @@ function populateSettingsLayout () {
 
     // Export Format List
     const exportFormat = document.createElement('div')
-    exportFormat.classList.add('settings-exportformat')
+    exportFormat.classList.add('settings')
     const exportFormatTitle = document.createElement('h2')
     exportFormatTitle.innerText = 'Sort Export Format'
+    const exportFormatDescription = document.createElement('p')
+    exportFormatDescription.innerText = 'Drag each block into a new position to change the export format.'
     
+    exportFormat.appendChild(exportFormatTitle)
+    exportFormat.appendChild(exportFormatDescription)
     exportFormat.appendChild(generateExportFormatList('exportFormat'))
 
     // Append child nodes to settings
@@ -45,6 +50,7 @@ function populateSettingsLayout () {
 function generateExportFormatList (id) {
     const exportFormatArray = getState('settings').exportFormat
     const exportFormatList = document.createElement('ul')
+    exportFormatList.classList.add('settings-exportformat__list')
     exportFormatList.id = id
 
     for (const exportSetting of exportFormatArray) {

@@ -97,7 +97,7 @@ function addPlaylistEntry (playlistName, playlistImage, playlistId) {
 	const content = document.querySelector('.playlists')
 
 	// Create playlist nodes
-	const playlistElem = document.createElement('div')
+	const playlistElem = document.createElement('button')
 	playlistElem.classList.add('playlist-item')
 	playlistElem.dataset.id = playlistId
 

@@ -9,13 +9,14 @@
     background-color: rgb(235, 235, 235);
     border: 0.25rem solid rgb(25, 25, 25);
     border-radius: 0.5rem;
-    max-width: 100%;
-    padding: 0.5rem 1rem;
+    width: 100%;
+    padding: 0.5rem 2rem;
     margin-bottom: 0.75rem;
 }
 
-.playlist-item:hover {
-    background-color: rgb(190, 190, 190);
+.playlist-item:hover,
+.playlist-item:focus {
+    background-color: rgb(190, 190, 180);
 }
 
 .playlist-item__image-wrapper {
