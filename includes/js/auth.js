@@ -78,8 +78,7 @@ function storeAuthCredsToState() {
 }
 
 function logout() {
-	// Revoke Session Key
-	localStorage.clear()
+	setState('auth', null)
 	sessionStorage.removeItem('sessionKey')
 	goToRoute('auth')
 }

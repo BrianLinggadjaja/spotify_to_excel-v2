@@ -7,12 +7,10 @@ function openError (message, errorCode) {
     metadata.errorCode = errorCode
     setState('metadata', metadata)
 
-    // Check if errorCode is a 400 type error (request re-auth from user)
-    let isClientError = (errorCode >= 400 && errorCode < 500)
-    if (isClientError) {
-        // Clear Data & Visit Auth
-        localStorage.clear()
-        goToRoute('auth')
+    // Check if errorCode is a 401 (Un-authorized)
+    let isAuthError = (errorCode === 401)
+    if (isAuthError) {
+        logout()
     } else if (isErrorHandlerClosed) {
         document.querySelector('.error-message').innerText = message
         errorHandlerHidden.setAttribute('aria-hidden', 'false')

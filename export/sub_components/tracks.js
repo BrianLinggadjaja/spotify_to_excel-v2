@@ -92,10 +92,10 @@ function createTracksFooter() {
 	return wrapper
 }
 
-async function getLikedTracks(offset) {
-	const limit = '?limit=' + 50
-	offset = '&offset=' + offset
+async function getLikedTracks(offsetNumber) {
 	const authState = getState('auth')
+	const limit = '?limit=' + 50
+	let offset = '&offset=' + offsetNumber
 
 	let data = await axios({
 		method: 'get',
@@ -107,18 +107,12 @@ async function getLikedTracks(offset) {
 	})
 	.then((response) => {
 		response = response.data
-		let isAvailableLikedTracks = isEndOfLikedTracks(response)
+		const newOffset = response.offset + 50
+		const isFullPlaylist = (newOffset >= response.total)
 
-		if (isAvailableLikedTracks) {
-			let currentOffset = response.offset
-			const limit = 50
-			const newOffset = currentOffset + limit
-	
-			// Display Tracks and Seek Next Offset
-			updateLoadingStatus(response)
-			displayTracks(response)
-			getLikedTracks(newOffset)
-		} else {
+		displayTracks(response)
+
+		if (isFullPlaylist) {
 			// Render export button after load
 			const exportButton = document.querySelector('.tracks-footer__export-button')
 			let isExportEnabled = document.querySelector('.tracks-footer__export-button.hidden') === null ? false : true
@@ -129,7 +123,12 @@ async function getLikedTracks(offset) {
 				// Re-enable navigation buttons
 				toggleNavigation(true)
 			}
+		} else {
+			updateLoadingStatus(response)
+			getLikedTracks(newOffset)
 		}
+
+		updateLoadingStatus(response)
 	})
 	.catch((error) => {
 		let errorCode = error.response.status
