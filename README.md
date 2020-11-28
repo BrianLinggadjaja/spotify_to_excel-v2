@@ -15,4 +15,6 @@ Visit the GitHub page at https://brianlinggadjaja.github.io/spotify_to_excel-v2/
 
 - [ ] Add a disable toggle for each export format setting
 
+- [ ] Fix fetch error for large lists (add load next 50 button/use timer from 400 error header provided by api to re-request at a valid time)
+
 - [ ] General Refactor/Optimization
