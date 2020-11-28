@@ -60,10 +60,10 @@ function loadSettingsFromState () {
     document.querySelector('.settings-file-name').value = settingsObj.fileName
 
     // Check if File Headers Enabled from State
-    if (settingsObj.fileName) {
+    if (settingsObj.fileHeaders) {
         document.querySelector('.settings-file-headers').checked = true
     } else {
-        document.querySelector('.settings-file-headers').checked = true
+        document.querySelector('.settings-file-headers').checked = false
     }
 }
 
@@ -110,7 +110,7 @@ function addDragableInteractions (listElem) {
 }
 
 function updateFileNameInState () {
-    const settingsObj = getState('settings')
+    let settingsObj = getState('settings')
     const newFileName = document.querySelector('.settings-file-name').value
 
     settingsObj.fileName = newFileName
@@ -119,7 +119,7 @@ function updateFileNameInState () {
 }
 
 function updateFileHeadersInState () {
-    const settingsObj = getState('settings')
+    let settingsObj = getState('settings')
     const isFileHeadersEnabled = document.querySelector('.settings-file-headers').checked
 
     settingsObj.fileHeaders = isFileHeadersEnabled
@@ -128,7 +128,7 @@ function updateFileHeadersInState () {
 }
 
 function updateExportFormatInState (newExportFormat) {
-    const settingsObj = getState('settings')
+    let settingsObj = getState('settings')
     settingsObj.exportFormat = newExportFormat
 
     setState('settings', settingsObj)
