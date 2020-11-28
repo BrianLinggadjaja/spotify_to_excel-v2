@@ -130,8 +130,6 @@ async function getLikedTracks(offsetNumber) {
 	.catch((error) => {
 		let errorCode = error.response.status
 
-		console.log(error)
-
 		console.error('tracks.js > getLikedTracks() > Error Code:', errorCode)
 		openError('Failure to get liked tracks!', errorCode)
 
