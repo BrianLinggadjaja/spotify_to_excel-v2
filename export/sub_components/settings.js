@@ -8,8 +8,9 @@ function populateSettingsLayout () {
     const fileName = document.createElement('div')
     fileName.classList.add('settings')
     const fileNameTitle = document.createElement('h2')
-    fileNameTitle.innerText = 'File Name'
+    fileNameTitle.innerText = 'Default File Name'
     const fileNameInput = document.createElement('input')
+    fileNameInput.classList.add('settings-file-name')
     fileNameInput.type = 'text'
 
     fileName.appendChild(fileNameTitle)
@@ -21,6 +22,7 @@ function populateSettingsLayout () {
     const fileHeadersTitle = document.createElement('h2')
     fileHeadersTitle.innerText = 'Enable File Headers?'
     const fileHeadersInput = document.createElement('input')
+    fileHeadersInput.classList.add('settings-file-headers')
     fileHeadersInput.type = 'checkbox'
 
     fileHeaders.appendChild(fileHeadersTitle)
@@ -44,7 +46,25 @@ function populateSettingsLayout () {
     settings.appendChild(exportFormat)
     content.appendChild(settings)
 
+    loadSettingsFromState()
+
+    addFileNameInputInteraction()
+    addFileHeaderInputInteraction()
     addDragableInteractions('exportFormat')
+}
+
+function loadSettingsFromState () {
+    const settingsObj = getState('settings')
+
+    // Update File Name from State
+    document.querySelector('.settings-file-name').value = settingsObj.fileName
+
+    // Check if File Headers Enabled from State
+    if (settingsObj.fileName) {
+        document.querySelector('.settings-file-headers').checked = true
+    } else {
+        document.querySelector('.settings-file-headers').checked = true
+    }
 }
 
 function generateExportFormatList (id) {
@@ -58,10 +78,19 @@ function generateExportFormatList (id) {
         exportFormatListItem.classList.add('settings-exportformat__list-item')
         exportFormatListItem.innerText = exportSetting
         exportFormatList.appendChild(exportFormatListItem)
-    
     }
 
     return exportFormatList
+}
+
+function addFileNameInputInteraction () {
+    const fileNameInput = document.querySelector('.settings-file-name')
+    fileNameInput.addEventListener('keyup', updateFileNameInState)
+}
+
+function addFileHeaderInputInteraction () {
+    const fileNameInput = document.querySelector('.settings-file-headers')
+    fileNameInput.addEventListener('click', updateFileHeadersInState)
 }
 
 function addDragableInteractions (listElem) {
@@ -78,6 +107,24 @@ function addDragableInteractions (listElem) {
             updateExportFormatInState(newExportFormat)
         },
     })
+}
+
+function updateFileNameInState () {
+    const settingsObj = getState('settings')
+    const newFileName = document.querySelector('.settings-file-name').value
+
+    settingsObj.fileName = newFileName
+
+    setState('settings', settingsObj)
+}
+
+function updateFileHeadersInState () {
+    const settingsObj = getState('settings')
+    const isFileHeadersEnabled = document.querySelector('.settings-file-headers').checked
+
+    settingsObj.fileHeaders = isFileHeadersEnabled
+
+    setState('settings', settingsObj)
 }
 
 function updateExportFormatInState (newExportFormat) {

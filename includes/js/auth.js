@@ -10,7 +10,7 @@ if (requestAuthButton) {
 }
 
 // Request Authorization
-function requestAuth() {
+function requestAuth () {
 	const api = 'https://accounts.spotify.com/authorize'
 	const responseType = '?response_type=' + 'token'
 	const clientId = '&client_id=' + '3ed3180a3801467ab924cb03e2869ab1'
@@ -40,7 +40,7 @@ function generateRandomKey(length) {
 }
 
 // Check for user authorization
-function checkAuth() {
+function checkAuth () {
 	let isCurrentRouteAuth = matchRoute('auth')
 	let isCurrentRouteExport = matchRoute('export')
 	let sessionKey = sessionStorage.sessionKey
@@ -64,7 +64,7 @@ function checkAuth() {
 }
 
 // Store api authorization credentials & sessionKey into state
-function storeAuthCredsToState() {
+function storeAuthCredsToState () {
 	let routeParams = new URLSearchParams(window.location.hash)
 	let accessToken = routeParams.get('#access_token')
 	let tokenType = routeParams.get('token_type')
@@ -77,7 +77,7 @@ function storeAuthCredsToState() {
 	setState('auth', authState)
 }
 
-function logout() {
+function logout () {
 	setState('auth', null)
 	sessionStorage.removeItem('sessionKey')
 	goToRoute('auth')

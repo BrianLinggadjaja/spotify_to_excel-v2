@@ -23,12 +23,12 @@ const defaultState = {
     }
 }
 
-function setState(location, object) {
+function setState (location, object) {
     let globalState = getGlobalState()
     let hasGlobalState = isNotNil(globalState)
     let hasLocalState = hasGlobalState ? isNotNil(globalState[location]) : false
 
-    if (hasGlobalState && hasLocalState) {
+    if (hasLocalState) {
         globalState[location] = object
         localStorage.setItem('state', JSON.stringify(globalState))
     } else {
@@ -39,7 +39,7 @@ function setState(location, object) {
     }
 }
 
-function getState(location) {
+function getState (location) {
     let globalState = getGlobalState()
     let hasGlobalState = isNotNil(globalState)
 
@@ -56,15 +56,15 @@ function getState(location) {
 }
 
 
-function getGlobalState() {
+function getGlobalState () {
     let state = localStorage.state
     let hasState = isNotNil(state)
 
     if (hasState) {
         state = JSON.parse(state)
+
+        return state
     } else {
         return null
     }
-
-    return state
 }
